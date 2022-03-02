@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Aggregates\UserAggregate;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
