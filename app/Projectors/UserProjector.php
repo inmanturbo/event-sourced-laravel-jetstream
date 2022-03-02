@@ -2,14 +2,16 @@
 
 namespace App\Projectors;
 
-use App\Aggregates\TeamAggregate;
 use App\Models\User;
+use Illuminate\Support\Str;
+use App\Aggregates\TeamAggregate;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
-use App\StorableEvents\UserPasswordUpdated;
+use Illuminate\Support\Facades\Hash;
 use App\StorableEvents\UserProfileUpdated;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\StorableEvents\UserPasswordUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class UserProjector extends Projector
