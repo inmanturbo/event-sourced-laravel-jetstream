@@ -14,6 +14,9 @@ class UserAggregate extends AggregateRoot
         string $name,
         string $email,
         string $password,
+        ?bool  $withPersonalTeam = false,
+        ?string $teamUuid = null,
+        ?string $teamName = null,
     ) {
         $this->recordThat(
             new UserCreated(
@@ -21,6 +24,9 @@ class UserAggregate extends AggregateRoot
                 name: $name,
                 email: $email,
                 password: $password,
+                withPersonalTeam: $withPersonalTeam,
+                teamUuid: $teamUuid,
+                teamName: $teamName,
             )
         );
 

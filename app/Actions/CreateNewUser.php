@@ -39,26 +39,10 @@ class CreateNewUser implements CreatesNewUsers
                 name: $input['name'],
                 email: $input['email'],
                 password: $input['password'],
+                withPersonalTeam: true,
             )->persist();
 
-            return tap(User::whereUuid($uuid)->first(), function (User $user) {
-                $this->createTeam($user);
-            });
+            return User::whereUuid($uuid)->first();
         });
-    }
-
-    /**
-     * Create a personal team for the user.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    protected function createTeam(User $user)
-    {
-        $user->ownedTeams()->save(Team::forceCreate([
-            'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
-            'personal_team' => true,
-        ]));
     }
 }

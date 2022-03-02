@@ -17,12 +17,12 @@ class TeamProjector extends Projector
 {
     public function onTeamCreated(TeamCreated $event)
     {
-        $user = User::whereUuid($event->ownerId)->first();
+        $user = User::whereUuid($event->ownerUuid)->first();
 
         $user->switchTeam($team = $user->ownedTeams()->create([
             'uuid' => $event->teamUuid,
             'name' => $event->name,
-            'personal_team' => false,
+            'personal_team' => $event->personalTeam,
         ]));
     }
 
