@@ -3,10 +3,6 @@
 namespace App\Providers;
 
 use App\Actions\CreateNewUser as ActionsCreateNewUser;
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Actions\ResetUserPassword as ActionsResetUserPassword;
 use App\Actions\UpdateUserPassword as ActionsUpdateUserPassword;
 use App\Actions\UpdateUserProfileInformation as ActionsUpdateUserProfileInformation;

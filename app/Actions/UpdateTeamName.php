@@ -28,7 +28,7 @@ class UpdateTeamName implements UpdatesTeamNames
         TeamAggregate::retrieve(
             uuid: $team->uuid
         )->updateTeam(
-                name: $input['name']
-            )->persist();
+            name: $input['name']
+        )->persist();
     }
 }
