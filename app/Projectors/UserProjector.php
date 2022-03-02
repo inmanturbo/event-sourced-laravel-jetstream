@@ -4,13 +4,13 @@ namespace App\Projectors;
 
 use App\Aggregates\TeamAggregate;
 use App\Models\User;
-use Illuminate\Support\Str;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
-use Illuminate\Support\Facades\Hash;
-use App\StorableEvents\UserProfileUpdated;
 use App\StorableEvents\UserPasswordUpdated;
+use App\StorableEvents\UserProfileUpdated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class UserProjector extends Projector
@@ -29,7 +29,6 @@ class UserProjector extends Projector
             Str::uuid();
 
         if ($event->withPersonalTeam) {
-
             $this->withPersonalTeam(
                 userUuid: $user->uuid,
                 userName: $user->name,
