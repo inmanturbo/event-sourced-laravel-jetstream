@@ -10,10 +10,11 @@ use App\StorableEvents\TeamMemberAdded;
 use App\StorableEvents\TeamMemberInvited;
 use App\StorableEvents\TeamMemberRemoved;
 use App\StorableEvents\TeamUpdated;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Jetstream\Jetstream;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
-class TeamProjector extends Projector
+class TeamProjector extends Projector implements ShouldQueue
 {
     public function onTeamCreated(TeamCreated $event)
     {

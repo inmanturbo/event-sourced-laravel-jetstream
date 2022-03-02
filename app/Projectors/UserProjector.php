@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\StorableEvents\UserProfileUpdated;
 use App\StorableEvents\UserPasswordUpdated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class UserProjector extends Projector
