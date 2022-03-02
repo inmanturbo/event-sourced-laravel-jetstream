@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Jetstream\Http\Controllers\Livewire\TeamController as LivewireTeamController;
 use Laravel\Jetstream\Jetstream;
@@ -19,7 +18,6 @@ class TeamController extends LivewireTeamController
      */
     public function show(Request $request, $teamId)
     {
-
         $team = Jetstream::newTeamModel()->where('uuid', $teamId)->firstOrFail();
 
         if (Gate::denies('view', $team)) {
