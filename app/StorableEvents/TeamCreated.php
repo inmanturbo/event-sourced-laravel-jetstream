@@ -9,7 +9,8 @@ class TeamCreated extends ShouldBeStored
     public function __construct(
         public string $teamUuid,
         public string $name,
-        public string $ownerId,
+        public string $ownerUuid,
+        public ?bool $personalTeam = false,
     ) {
     }
 }

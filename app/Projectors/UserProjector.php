@@ -2,25 +2,40 @@
 
 namespace App\Projectors;
 
+use App\Aggregates\TeamAggregate;
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
-use App\StorableEvents\UserPasswordUpdated;
-use App\StorableEvents\UserProfileUpdated;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Hash;
+use App\StorableEvents\UserProfileUpdated;
+use App\StorableEvents\UserPasswordUpdated;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class UserProjector extends Projector
 {
     public function onUserCreated(UserCreated $event)
     {
-        User::forceCreate([
+        $user = User::forceCreate([
             'uuid' => $event->userUuid,
             'name' => $event->name,
             'email' => $event->email,
             'password' => Hash::make($event->password),
         ]);
+
+        $teamUuid = $event->teamUuid ?
+            $event->teamUuid :
+            Str::uuid();
+
+        if ($event->withPersonalTeam) {
+
+            $this->withPersonalTeam(
+                userUuid: $user->uuid,
+                userName: $user->name,
+                teamUuid: $teamUuid
+            );
+        }
     }
 
     public function onUserProfileUpdated(UserProfileUpdated $event)
@@ -73,5 +88,18 @@ class UserProjector extends Projector
         ])->save();
 
         $user->sendEmailVerificationNotification();
+    }
+
+    private function withPersonalTeam($userUuid, $userName, $teamUuid, $teamName = null)
+    {
+        $teamName = $teamName ?: explode(' ', $userName, 2)[0] . "'s Team";
+
+        $teamAggregate = TeamAggregate::retrieve($teamUuid);
+
+        $teamAggregate->createTeam(
+            name: $teamName,
+            ownerUuid: $userUuid,
+            personalTeam: true,
+        )->persist();
     }
 }

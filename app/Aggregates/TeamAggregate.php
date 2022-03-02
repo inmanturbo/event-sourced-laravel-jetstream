@@ -15,11 +15,13 @@ class TeamAggregate extends AggregateRoot
     public function createTeam(
         string $ownerUuid,
         string $name,
+        ?bool $personalTeam = false,
     ) {
         $this->recordThat(new TeamCreated(
             teamUuid: $this->uuid(),
             name: $name,
-            ownerId: $ownerUuid,
+            ownerUuid: $ownerUuid,
+            personalTeam: $personalTeam,
         ));
 
         return $this;

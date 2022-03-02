@@ -11,6 +11,9 @@ class UserCreated extends ShouldBeStored
         public string $name,
         public string $email,
         public string $password,
+        public ?bool $withPersonalTeam = false,
+        public ?string $teamUuid = null,
+        public ?string $teamName = null,
     ) {
     }
 }

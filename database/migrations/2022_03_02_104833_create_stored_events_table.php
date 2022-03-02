@@ -23,4 +23,9 @@ class CreateStoredEventsTable extends Migration
             $table->unique(['aggregate_uuid', 'aggregate_version']);
         });
     }
+
+    public function down()
+    {
+        Schema::dropIfExists('stored_events');
+    }
 }
