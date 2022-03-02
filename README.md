@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* php 8,1 or higher
+* php 8.1 or higher
 * composer
 * yarn or npm
 
