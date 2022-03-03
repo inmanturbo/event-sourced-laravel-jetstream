@@ -18,7 +18,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-use Impersonate;
+    use Impersonate;
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -31,7 +31,7 @@ use Impersonate;
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password', 'uuid',
+        'name', 'email', 'password', 'uuid', 'is_main_user',
     ];
 
     /**

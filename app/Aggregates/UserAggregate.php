@@ -2,6 +2,7 @@
 
 namespace App\Aggregates;
 
+use App\StorableEvents\MainUserUpdated;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
 use App\StorableEvents\UserPasswordUpdated;
@@ -67,6 +68,17 @@ class UserAggregate extends AggregateRoot
     {
         $this->recordThat(
             new UserDeleted(
+                userUuid: $this->uuid(),
+            )
+        );
+
+        return $this;
+    }
+
+    public function setMainUser()
+    {
+        $this->recordThat(
+            new MainUserUpdated(
                 userUuid: $this->uuid(),
             )
         );

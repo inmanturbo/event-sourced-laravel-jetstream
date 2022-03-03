@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\DocsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DocsController;
+use App\Http\Controllers\MainUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::put('/main-user', [MainUserController::class, 'update'])->name('main-user.update');
