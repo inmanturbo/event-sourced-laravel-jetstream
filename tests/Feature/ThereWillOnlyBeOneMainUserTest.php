@@ -4,7 +4,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\put;
 
 uses(RefreshDatabase::class);
 

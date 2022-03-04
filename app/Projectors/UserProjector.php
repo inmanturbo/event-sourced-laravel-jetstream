@@ -2,23 +2,21 @@
 
 namespace App\Projectors;
 
-use App\Models\User;
-use Illuminate\Support\Str;
 use App\Aggregates\TeamAggregate;
+use App\Models\User;
 use App\StorableEvents\MainUserUpdated;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
-use Illuminate\Support\Facades\Hash;
-use App\StorableEvents\UserProfileUpdated;
 use App\StorableEvents\UserPasswordUpdated;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\StorableEvents\UserProfileUpdated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class UserProjector extends Projector
 {
-
     public function onMainUserUpdated(MainUserUpdated $event)
     {
         $mainUser = User::whereUuid($event->userUuid)->firstOrFail();
@@ -39,7 +37,6 @@ class UserProjector extends Projector
             ->table('users')
             ->where('id', '!=', $mainUser->id)
             ->update(['is_main_user' => false]);
-
     }
 
     public function onUserCreated(UserCreated $event)
@@ -115,7 +112,6 @@ class UserProjector extends Projector
 
         $user->sendEmailVerificationNotification();
     }
-
 
     private function withPersonalTeam($userUuid, $userName, $teamUuid, $teamName = null)
     {
